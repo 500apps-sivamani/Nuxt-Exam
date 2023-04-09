@@ -4,19 +4,19 @@
       <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
           <h1 class="text-base font-semibold leading-6 text-white">
-            Add Your Custom Fields
+            Add Projects
           </h1>
           <p class="mt-2 text-sm text-gray-300">
-            Please Enter your custom field By click on "Add custom field"
+            You can add projects By click on "Add Projects"
           </p>
         </div>
         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <button
-            @click="addCustomfield"
+            @click="addProjects"
             type="button"
             class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           >
-            Add custom field
+            Add Projects
           </button>
         </div>
       </div>
@@ -32,49 +32,64 @@
                     scope="col"
                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0"
                   >
-                    Name
+                    Project Name
                   </th>
                   <th
                     scope="col"
                     class="px-3 py-3.5 text-left text-sm font-semibold text-white"
                   >
-                    Type
+                    Category
                   </th>
                   <th
                     scope="col"
                     class="px-3 py-3.5 text-left text-sm font-semibold text-white"
                   >
-                    Description
+                    Sub Category
                   </th>
                   <th
                     scope="col"
                     class="px-3 py-3.5 text-left text-sm font-semibold text-white"
                   >
-                    Placeholder
+                    Status
                   </th>
-                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                    <span class="sr-only">Edit</span>
+                  <th
+                    scope="col"
+                    class="px-3 py-3.5 text-left text-sm font-semibold text-white"
+                  >
+                    Metric
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-3 py-3.5 text-left text-sm font-semibold text-white"
+                  >
+                    Approve Status
                   </th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-800">
                 <tr
-                  v-for="(customFieldData, index) in getCustomData"
+                  v-for="(projectsData, index) in projectsGetData"
                   :key="index"
                 >
                   <td
                     class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0"
                   >
-                    {{ customFieldData.name }}
+                    {{ projectsData.name }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-                    {{ customFieldData.type }}
+                    {{ projectsData.category }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-                    {{ customFieldData.type_data.description }}
+                    {{ projectsData.sub_category }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-                    {{ customFieldData.type_data.placeholder }}
+                    {{ projectsData.status }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                    {{ projectsData.metric }}
+                  </td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                    {{ projectsData.approve_status }}
                   </td>
                   <td
                     class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
@@ -82,7 +97,7 @@
                     <a
                       href="#"
                       class="text-indigo-400 hover:text-indigo-300"
-                      @click="editCall(customFieldData, index)"
+                      @click="editCall(projectsData, index)"
                       >Edit</a
                     >
                   </td>
@@ -92,7 +107,7 @@
                     <a
                       href="#"
                       class="text-indigo-400 hover:text-indigo-300"
-                      @click="deleteCall(customFieldData, index)"
+                      @click="deleteCall(projectsData, index)"
                       >Delete</a
                     >
                   </td>
@@ -109,26 +124,26 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from "vue";
 
-const emit = defineEmits(["openCustomfieldSidebar", "editCall", "deleteCall"]);
+const emit = defineEmits(["openProjectSideBar", "editCall", "deleteCall"]);
 
 const props = defineProps({
-  getCustomData: {
-    type: Array,
+  projectsGetData: {
+    type: Object,
   },
 });
 
 //Sending emit for opening sidebar
-const addCustomfield = () => {
-  emit("openCustomfieldSidebar");
+const addProjects = () => {
+  emit("openProjectSideBar");
 };
 
 //sending emit for edit
-const editCall = (customFieldData: any, index: any) => {
-  emit("editCall", customFieldData, index);
+const editCall = (projectsData: any, index: any) => {
+  emit("editCall", projectsData, index);
 };
 
 //sending emit for delete
-const deleteCall = (customFieldData: any, index: any) => {
-  emit("deleteCall", customFieldData, index);
+const deleteCall = (projectsData: any, index: any) => {
+  emit("deleteCall", projectsData, index);
 };
 </script>
